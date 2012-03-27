@@ -1,0 +1,54 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+	<div id="TemplateImplementationProject">
+		<span id="showAllInfo" style="display:none;"><a id="showAll" href="javascript://">Show all settings</a> (changing those settings will have no effect)</span>
+		<!--<script>-->
+			<!--Event.observe(window, 'load', function() {-->
+				<!--toggleVisibilityOfOtherFields(false);-->
+				<!--var checkbox = $$('input[name="com-attask-ImplementTemplateBuildWrapper"]');-->
+				<!--if(checkbox &amp;&amp; checkbox.length > 0 &amp;&amp; !checkbox[0].checked) {-->
+					<!--checkbox[0].click();-->
+				<!--}-->
+
+				<!--$$('#TemplateImplementationProject #showAll')[0].observe('click', function() {-->
+					<!--toggleVisibilityOfOtherFields(true);-->
+				<!--});-->
+			<!--});-->
+
+			<!--function toggleVisibilityOfOtherFields(show) {-->
+				<!--$$('form[name=config] tr').each(function(i) {-->
+					<!--if(!i.down('input[name="com-attask-ImplementTemplateBuildWrapper"]') &amp;&amp;-->
+					   <!--!i.down('#TemplateImplementationProject-templateName') &amp;&amp;-->
+					   <!--!i.down('#TemplateImplementationProject-parameters"]') &amp;&amp;-->
+					   <!--!i.down('input[name=name]]') &amp;&amp;-->
+					   <!--!i.down('textArea[name=description]') &amp;&amp;-->
+					   <!--!i.down('.submit-button')) {-->
+						<!--if(show) {-->
+							<!--i.show();-->
+						<!--} else {-->
+							<!--i.hide();-->
+						<!--}-->
+					<!--}-->
+				<!--});-->
+				<!--if(show) {-->
+					<!--$('showAllInfo').hide();-->
+				<!--} else {-->
+					<!--$('showAllInfo').show();-->
+				<!--}-->
+			<!--}-->
+		<!--</script>-->
+
+		<f:entry title="Name of template to implement" field="templateName">
+			<f:textbox id="TemplateImplementationProject-templateName" />
+		</f:entry>
+		<!--<f:entry title="Name of template to implement" field="templateName">-->
+			<!--<select id="TemplateImplementationProject-templateName">-->
+				<!--<j:forEach items="${it.getTemplates()}" var="template">-->
+					<!--<option value="${template.name}">${template.displayName}</option>-->
+				<!--</j:forEach>-->
+			<!--</select>-->
+		<!--</f:entry>-->
+		<f:entry title="Parameters" field="parameters">
+			<f:textarea class="bacon" id="TemplateImplementationProject-parameters" />
+		</f:entry>
+	</div>
+</j:jelly>

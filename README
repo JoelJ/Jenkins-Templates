@@ -1,0 +1,1 @@
+Templates and Scaffolding for Jenkins. Create template jobs with variables ($$VAR_NAME). Then create a scaffolding view, then you can quickly create sets of Jenkins jobs right from the scaffolding view.

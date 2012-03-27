@@ -1,0 +1,51 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+	<j:set var="views" value="${it.owner.views}"/>
+	<j:set var="currentView" value="${it}"/>
+	<st:include page="viewTabs.jelly" it="${it.owner.viewsTabBar}"/>
+
+	<div id="scaffolding">
+		<form method="post" action="${rootURL}/${it.url}standUpScaffolding">
+			<label for="scaffolding-prefix">Implementation Prefix:</label>
+			<input type="text" name="name-prefix" id="scaffolding-prefix"/>
+			<br/>
+			<label for="scaffolding-suffix">Implementation Suffix:</label>
+			<input type="text" name="name-suffix" id="scaffolding-suffix"/>
+
+			<j:forEach items="${it.templates}" var="template">
+				<table class="pane template" style="width: auto;">
+					<tr><td class="pane-header" colspan="2" value="${template}">${template}</td></tr>
+					<j:forEach items="${it.getVariableNamesForTemplate(template)}" var="variableName">
+						<tr class="variables-${template}">
+							<td style="width: 150px;" class="pane">${variableName}</td>
+							<td class="pane"><input type="text" name="variables@@${template}@@${variableName}"/></td>
+						</tr>
+					</j:forEach>
+				</table>
+			</j:forEach>
+
+			<div id="bottom-sticker" class="submit-button">
+				<div class="bottom-sticker-inner">
+					<span class="yui-button yui-submit-button submit-button" id="yui-gen173" name="Submit">
+						<span class="first-child">
+							<button type="submit">Stand Up Scaffolding</button>
+						</span>
+					</span>
+				</div>
+			</div>
+		</form>
+
+		<script>
+			var scaffoldingName = $('scaffolding-suffix');
+			var scaffoldingPrefix= $('scaffolding-prefix');
+
+			scaffoldingName.observe('keyup', updateNames);
+			scaffoldingPrefix.observe('keyup', updateNames);
+
+			function updateNames() {
+				$$('table.template td.pane-header').each(function(it) {
+					it.innerText = scaffoldingPrefix.value + it.getAttribute('value') + scaffoldingName.value;
+				});
+			}
+		</script>
+	</div>
+</j:jelly>

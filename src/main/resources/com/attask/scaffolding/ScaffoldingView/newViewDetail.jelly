@@ -1,0 +1,4 @@
+<div>
+	A view that shows a user-defined list of templates and the variables needed to be implemented.
+	Provides a form to submit to build out all the implementations of the templates.
+</div>
