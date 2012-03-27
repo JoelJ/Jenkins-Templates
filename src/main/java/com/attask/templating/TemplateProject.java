@@ -2,7 +2,6 @@ package com.attask.templating;
 
 import hudson.Extension;
 import hudson.model.*;
-import hudson.tasks.BuildWrapper;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 

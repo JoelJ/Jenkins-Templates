@@ -3,13 +3,10 @@ package com.attask.scaffolding;
 import com.attask.templating.*;
 import com.google.common.collect.ImmutableList;
 import hudson.Extension;
-import hudson.Util;
 import hudson.XmlFile;
 import hudson.model.*;
-import hudson.util.FormValidation;
 import org.apache.commons.io.FileUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -19,7 +16,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * User: joeljohnson
