@@ -1,0 +1,5 @@
+<div>
+	<p>An implementation of a Template Project. Enable the "Implement Template" build environment option to specify the template to implement.</p>
+	<p>Any changes made to an implementation will automatically be overridden by what the template replacing any occurrences of template-variables (\$\$\w+) with what is specified in the "Implement Template" build environment.</p>
+	<p>The easiest way to set up implementations is to use the Scaffolding view.</p>
+</div>

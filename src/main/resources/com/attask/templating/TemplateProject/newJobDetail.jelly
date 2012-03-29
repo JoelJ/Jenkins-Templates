@@ -1,0 +1,5 @@
+<div>
+	A template for other projects. Only supports templating Free-Style projects.
+	Use the Template Implementation job to implement the build.
+	Any changes made to the Template will automatically update the Template Implementation jobs that have specified the updated template as the template to implement.
+</div>
