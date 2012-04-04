@@ -2,6 +2,7 @@ package com.attask.scaffolding;
 
 import com.attask.templating.*;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import hudson.Extension;
 import hudson.XmlFile;
 import hudson.model.*;
@@ -115,8 +116,7 @@ public class ScaffoldingView extends View {
 			return Collections.emptyList();
 		}
 
-		ImmutableList.Builder<String> result = ImmutableList.builder();
-
+		ImmutableSet.Builder<String> result = ImmutableSet.builder();
 		TemplateProject templateProject = (TemplateProject)item;
 		String config = readConfigFile(templateProject.getConfigFile());
 
