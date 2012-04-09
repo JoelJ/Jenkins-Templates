@@ -32,7 +32,7 @@ public class TemplateProject extends Project<TemplateProject, TemplateBuild> imp
 	public void save() throws IOException {
 		super.save();
 
-		ImplementTemplateBuildWrapper.updateImplementationsOfTemplate(this);
+		ImplementTemplateBuildWrapper.updateImplementationsOfTemplate(Hudson.getInstance(), this);
 	}
 
 	@Override

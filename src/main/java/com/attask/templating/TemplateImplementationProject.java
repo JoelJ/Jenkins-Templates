@@ -41,8 +41,8 @@ public class TemplateImplementationProject extends Project<TemplateImplementatio
 			}
 		}
 
-		if(implementer != null && implementer.templateName != null) {
-			TemplateProject template = (TemplateProject) Hudson.getInstance().getItem(implementer.templateName);
+		if(implementer != null && implementer.getTemplateName() != null) {
+			TemplateProject template = (TemplateProject) Hudson.getInstance().getItem(implementer.getTemplateName());
 			implementer.updateImplementationWithTemplate(this, template);
 		}
 	}

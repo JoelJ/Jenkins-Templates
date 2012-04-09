@@ -23,8 +23,8 @@ import java.util.regex.Pattern;
  * Time: 4:13 PM
  */
 public class ImplementTemplateBuildWrapper extends BuildWrapper {
-	public String templateName;
-	public String parameters;
+	private String templateName;
+	private String parameters;
 
 	public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
@@ -34,7 +34,7 @@ public class ImplementTemplateBuildWrapper extends BuildWrapper {
 		this.parameters = parameters;
 	}
 
-	public void updateImplementationWithTemplate(TemplateImplementationProject implementation, TemplateProject template) throws IOException {
+public void updateImplementationWithTemplate(TemplateImplementationProject implementation, TemplateProject template) throws IOException {
 		if(implementation == null) {
 			return;
 		}
@@ -73,23 +73,25 @@ public class ImplementTemplateBuildWrapper extends BuildWrapper {
 		implementation.saveNoUpdate();
 	}
 
-	public static void updateImplementationsOfTemplate(TemplateProject template) throws IOException {
-		for (String topLevelItemName : Hudson.getInstance().getTopLevelItemNames()) {
-			TopLevelItem implementationProject = Hudson.getInstance().getItem(topLevelItemName);
-			if (implementationProject instanceof TemplateImplementationProject) {
-				ImplementTemplateBuildWrapper implementer = null;
-				for (BuildWrapper buildWrapper : ((TemplateImplementationProject) implementationProject).getBuildWrappers().values()) {
-					if (buildWrapper != null && buildWrapper instanceof ImplementTemplateBuildWrapper) {
-						ImplementTemplateBuildWrapper temp = (ImplementTemplateBuildWrapper) buildWrapper;
-						if (template.getName().equals(temp.templateName)) {
-							implementer = temp;
-							break;
+	public static void updateImplementationsOfTemplate(ItemGroup hudson, TemplateProject template) throws IOException {
+		for (Object o : hudson.getItems()) {
+			if(o instanceof TopLevelItem) {
+				TopLevelItem implementationProject = (TopLevelItem)o;
+				if (implementationProject instanceof TemplateImplementationProject) {
+					ImplementTemplateBuildWrapper implementer = null;
+					for (BuildWrapper buildWrapper : ((TemplateImplementationProject) implementationProject).getBuildWrappers().values()) {
+						if (buildWrapper != null && buildWrapper instanceof ImplementTemplateBuildWrapper) {
+							ImplementTemplateBuildWrapper temp = (ImplementTemplateBuildWrapper) buildWrapper;
+							if (template.getName().equals(temp.getTemplateName())) {
+								implementer = temp;
+								break;
+							}
 						}
 					}
-				}
 
-				if (implementer != null) {
-					implementer.updateImplementationWithTemplate((TemplateImplementationProject) implementationProject, template);
+					if (implementer != null) {
+						implementer.updateImplementationWithTemplate((TemplateImplementationProject) implementationProject, template);
+					}
 				}
 			}
 		}
@@ -103,6 +105,22 @@ public class ImplementTemplateBuildWrapper extends BuildWrapper {
 				return super.tearDown(build, listener);
 			}
 		};
+	}
+
+	public String getTemplateName() {
+		return templateName;
+	}
+
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
+	}
+
+	public String getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(String parameters) {
+		this.parameters = parameters;
 	}
 
 	@Extension
