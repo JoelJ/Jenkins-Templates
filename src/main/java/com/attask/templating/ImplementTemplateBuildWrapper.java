@@ -34,7 +34,7 @@ public class ImplementTemplateBuildWrapper extends BuildWrapper {
 		this.parameters = parameters;
 	}
 
-public void updateImplementationWithTemplate(TemplateImplementationProject implementation, TemplateProject template) throws IOException {
+	public void updateImplementationWithTemplate(TemplateImplementationProject implementation, TemplateProject template) throws IOException {
 		if(implementation == null) {
 			return;
 		}
@@ -125,12 +125,26 @@ public void updateImplementationWithTemplate(TemplateImplementationProject imple
 
 	@Extension
 	public static class DescriptorImpl extends BuildWrapperDescriptor {
+		private final ItemGroup<TopLevelItem> hudson;
+
+		public DescriptorImpl() {
+			this.hudson = null;
+		}
+
+		/**
+		 * Constructor for testing
+		 * @param hudson
+		 */
+		public DescriptorImpl(ItemGroup<TopLevelItem> hudson) {
+			this.hudson = hudson;
+		}
+
 		public FormValidation doCheckTemplateName(@QueryParameter String value) {
 			if (value == null || value.trim().isEmpty()) {
 				return FormValidation.error("Template is a required field.");
 			}
 
-			Hudson instance = Hudson.getInstance();
+			ItemGroup<TopLevelItem> instance = getHudson();
 			TopLevelItem topLevelItem = instance.getItem(value);
 			if (topLevelItem == null) {
 				return FormValidation.error("Project " + value + " does not exist.");
@@ -139,6 +153,13 @@ public void updateImplementationWithTemplate(TemplateImplementationProject imple
 				return FormValidation.error("Project " + value + " is not a template.");
 			}
 			return FormValidation.ok();
+		}
+		
+		private ItemGroup<TopLevelItem> getHudson() {
+			if(hudson == null) {
+				return Hudson.getInstance();
+			}
+			return hudson;
 		}
 
 		@Override
