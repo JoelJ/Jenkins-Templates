@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.Collection;
 
 /**
+ * A job that implements a template. Whenever this object gets saved, it syncs up with the template.
+ * Only changes made to the ImplementTemplateBuildWrapper fields are actually kept.
+ * Anything else is overwritten by the template's settings.
  * User: joeljohnson
  * Date: 3/13/12
  * Time: 12:12 PM
@@ -31,6 +34,13 @@ public class TemplateImplementationProject extends Project<TemplateImplementatio
 		return TemplateImplementationBuild.class;
 	}
 
+	/**
+	 * Calls the normal save then syncs up with the template.
+	 * Effectively overwrites any changes made except to the ImplementTemplateBuildWrapper
+	 * @throws IOException
+	 * If the config.xml file of the template or implementation cannot be read or written to
+	 * an appropriate IOException will be thrown.
+	 */
 	@Override
 	public void save() throws IOException {
 		super.save();
@@ -47,6 +57,13 @@ public class TemplateImplementationProject extends Project<TemplateImplementatio
 		}
 	}
 
+	/**
+	 * Calls the normal save but doesn't sync.
+	 * This is necessary to prevent infinite loops.
+	 * @throws IOException
+	 * If the config.xml file of the template or implementation cannot be read or written to
+	 * an appropriate IOException will be thrown.
+	 */
 	public void saveNoUpdate() throws IOException {
 		super.save();
 	}
@@ -81,6 +98,10 @@ public class TemplateImplementationProject extends Project<TemplateImplementatio
 		}
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public Collection<TemplateProject> getTemplates() {
 		ImmutableList.Builder<TemplateProject> builder = ImmutableList.builder();
 

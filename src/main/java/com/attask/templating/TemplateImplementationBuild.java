@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * Basically does nothing. Just there for generics in TemplateImplementationProject.
  * User: joeljohnson
  * Date: 3/13/12
  * Time: 12:13 PM

@@ -19,6 +19,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * A view designed to easily create a set of projects based on templates.
+ * This lets you create a template of projects for, say, a branch on a VCS, using the Branch name as a variable, then
+ * create all the jobs at once for a specific branch.
  * User: joeljohnson
  * Date: 3/27/12
  * Time: 9:54 AM
@@ -68,6 +71,15 @@ public class ScaffoldingView extends View {
 		return item;
 	}
 
+	/**
+	 * Must be a POST.
+	 * Creates all the implementations of the templates defined in this view.
+	 * @param request request from the browser
+	 * @param response response back to the browser
+	 * @throws IOException thrown if the new jobs couldn't be created because the config files couldn't be saved to disk
+	 * @throws ServletException Thrown if a POST is not used to make the request.
+	 */
+	@SuppressWarnings("UnusedDeclaration")
 	public void doStandUpScaffolding(StaplerRequest request, StaplerResponse response) throws IOException, ServletException {
 		requirePOST();
 
@@ -109,7 +121,16 @@ public class ScaffoldingView extends View {
 
 		response.forwardToPreviousPage(request);
 	}
-	
+
+	/**
+	 * Gets all the variable names of a given template.
+	 * A variable is defined in the config as $$SOMENAME.
+	 * @param templateName The name of the template to look up.
+	 * @return A collection of all the variable names.
+	 * If the template doesn't represent a template, then an empty collection is returned.
+	 * @throws IOException If the config file cannot be read for then given template.
+	 */
+	@SuppressWarnings("UnusedDeclaration")
 	public Collection<String> getVariableNamesForTemplate(String templateName) throws IOException {
 		TopLevelItem item = Hudson.getInstance().getItem(templateName);
 		if(!(item instanceof TemplateProject)) {
@@ -129,11 +150,20 @@ public class ScaffoldingView extends View {
 		return result.build();
 	}
 
+	/**
+	 * Reads the given config file to a string.
+	 * @param configFile The config file to read.
+	 * @return The contents of the file as a string.
+	 * @throws IOException If the file cannot be read.
+	 */
 	private String readConfigFile(XmlFile configFile) throws IOException {
 		File file = configFile.getFile();
 		return FileUtils.readFileToString(file);
 	}
-	
+
+	/**
+	 * Parses out all the variables of a request for a given template. Generates the appropriate properties file for that template.
+	 */
 	private String generatePropertiesFileForParameters(String templateName, List<String> variableNames, StaplerRequest request) {
 		StringBuilder sb = new StringBuilder();
 		for (String variableName : variableNames) {

@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import java.io.*;
 
 /**
+ * Simply the same as a FreeStyleProject,
+ * except that whenever it gets updated it syncs all the TemplateImplementation objects with the changes.
  * User: joeljohnson
  * Date: 3/13/12
  * Time: 12:12 PM
@@ -28,6 +30,12 @@ public class TemplateProject extends Project<TemplateProject, TemplateBuild> imp
 		return TemplateBuild.class;
 	}
 
+	/**
+	 * Saves as normal then syncs all the child implementations with the changes. Replacing all the $$VARIABLES
+	 * @throws IOException
+	 * If the config.xml file of the template or implementation cannot be read or written to
+	 * an appropriate IOException will be thrown.
+	 */
 	@Override
 	public void save() throws IOException {
 		super.save();
