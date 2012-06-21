@@ -1,1 +1,3 @@
+This is old school. Check out the newer and better Template plugin: https://github.com/JoelJ/Templating
+
 Templates and Scaffolding for Jenkins. Create template jobs with variables ($$VAR_NAME). Then create a scaffolding view, then you can quickly create sets of Jenkins jobs right from the scaffolding view.
